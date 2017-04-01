@@ -307,7 +307,7 @@ read -p "finish postfix" temp
 	sed -i "s/\#driver =/driver = mysql/g" /etc/dovecot/dovecot-sql.conf.ext
 	echo "connect = host=127.0.0.1 dbname=$mail_db_name user=$mail_db_user password=$mail_db_passwd" >> /etc/dovecot/dovecot-sql.conf.ext
 	sed -i "s/\#default_pass_scheme = MD5/default_pass_scheme = SHA512-CRYPT/g" /etc/dovecot/dovecot-sql.conf.ext
-	echo "password_query = SELECT email as user, password FROM virtual_users WHERE email='%u';" > /etc/dovecot/dovecot-sql.conf.ext
+	echo "password_query = SELECT email as user, password FROM virtual_users WHERE email='%u';" >> /etc/dovecot/dovecot-sql.conf.ext
 	
 ### Permissions
 
@@ -336,8 +336,10 @@ read -p "finish postfix" temp
 	   group = postfix
 	  }
 	}
-	service imap {}
-	service pop3 {}
+	service imap {
+	}
+	service pop3 {
+	}
 	service auth {
 	  unix_listener /var/spool/postfix/private/auth {
 	    mode = 0666
