@@ -1,0 +1,7 @@
+user = mail
+password = YRC29rNa
+hosts = localhost
+dbname = mail
+table = forwardings
+select_field = destination
+where_field = source

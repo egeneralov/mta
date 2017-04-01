@@ -1,0 +1,7 @@
+user = mail
+password = YRC29rNa
+hosts = localhost
+dbname = mail
+table = users
+select_field = concat(domain,'/',email,'/')
+where_field = email
