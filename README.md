@@ -4,7 +4,7 @@
 
 #### Config
 
-	mysqlpasswd="killall33"
+	mysqlrootpasswd="killall33"
 
 #### MUST run on clean
 
@@ -20,8 +20,8 @@
 
 #### Fuck off mysql installation
 
-	debconf-set-selections <<< "mysql-server-5.5	mysql-server/root_password string $mysqlpasswd"
-	debconf-set-selections <<< "mysql-server-5.5	mysql-server/root_password_again string $mysqlpasswd"
+	debconf-set-selections <<< "mysql-server-5.5	mysql-server/root_password string $mysqlrootpasswd"
+	debconf-set-selections <<< "mysql-server-5.5	mysql-server/root_password_again string $mysqlrootpasswd"
 
 #### Installing packages
 
@@ -43,26 +43,28 @@
 
 #### Create mysql user for mail
 
-	echo "CREATE DATABASE mail;" | mysql -p$mysqlpasswd mysql
-	echo "CREATE USER 'mail'@'localhost' IDENTIFIED BY 'YRC29rNa';" | mysql -p$mysqlpasswd mail
-	echo "GRANT ALL PRIVILEGES ON mail.* TO 'mail'@'localhost';" | mysql -p$mysqlpasswd mail
-	echo "FLUSH PRIVILEGES;" | mysql -p$mysqlpasswd mail
+	echo -e "\e[31m -> configuring mysql\e[0m";
+	echo "CREATE DATABASE mail;" | mysql -p$mysqlrootpasswd mysql || echo -e "\e[31m >> creating database failed\e[0m";
+	echo "CREATE USER 'mail'@'localhost' IDENTIFIED BY 'YRC29rNa';" | mysql -p$mysqlrootpasswd mail || echo -e "\e[31m >>create user failed\e[0m";
+	echo "GRANT ALL PRIVILEGES ON mail.* TO 'mail'@'localhost';" | mysql -p$mysqlrootpasswd mail || echo -e "\e[31m >> mysql set user permissions failed\e[0m";
+	echo "FLUSH PRIVILEGES;" | mysql -p$mysqlrootpasswd mail || echo -e "\e[31m >> flush privileges failed\e[0m";
 
 #### Import mysql tables
 
-	mysql -p$mysqlpasswd mail < mail.sql
+	echo -e "\e[31m -> importing .sql \e[0m"; 
+	mysql -p$mysqlrootpasswd mail < mail.sql || echo -e "\e[31m failed\e[0m";
 
 #### Replace config
 
-	rm -rf /etc/dovecot
-	rm -rf /etc/postfix
-	mv postfix /etc/
-	mv dovecot /etc/
+	rm -rf /etc/dovecot || echo -e "\e[31m >> remove /etc/dovecot failed\e[0m";
+	rm -rf /etc/postfix || echo -e "\e[31m >> remove /etc/postfix failed\e[0m";
+	mv postfix /etc/ || echo -e "\e[31m >> replace dovecot config failed\e[0m";
+	mv dovecot /etc/ || echo -e "\e[31m >> replace postfix config failed\e[0m";
 
 #### Start services
 
-	/etc/init.d/postfix start
-	/etc/init.d/dovecot start
+	/etc/init.d/postfix start || echo -e "\e[31m >> postfix start failed \e[0m" # systemctl status postfix.service -l
+	/etc/init.d/dovecot start || echo -e "\e[31m >> dovecot start failed \e[0m" # systemctl status dovecot.service -l
 
 
 
