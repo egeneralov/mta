@@ -26,6 +26,10 @@
 	debconf-set-selections <<< "mysql-server-5.5	mysql-server/root_password string $mysqlpasswd"
 	debconf-set-selections <<< "mysql-server-5.5	mysql-server/root_password_again string $mysqlpasswd"
 
+## Start installation
+
+	read -p "Installation started" temp
+
 ### Install postfix
 
 	apt-get install -y postfix postfix-mysql 
@@ -46,6 +50,10 @@
 
 	apt-get install -y openssl
 
+## Starting fuck with mysql
+
+	read -p "Starting mysql fuck" temp
+
 ### Create mysql database for mail
 
 	mysqladmin -p$mysqlpasswd create $mail_db_name
@@ -57,6 +65,8 @@
 
 ### Table for domains
 
+read -p "virtual_domains" temp
+
 	echo 'CREATE TABLE `virtual_domains` (
 	  `id` int(11) NOT NULL auto_increment,
 	  `name` varchar(50) NOT NULL,
@@ -64,6 +74,8 @@
 	) ENGINE=InnoDB DEFAULT CHARSET=utf8;' | mysql -p$mysqlpasswd $mail_db_name
 
 ### Table for users
+
+read -p "virtual_users" temp
 
 	echo 'CREATE TABLE `virtual_users` (
 	  `id` int(11) NOT NULL auto_increment,
@@ -76,6 +88,8 @@
 	) ENGINE=InnoDB DEFAULT CHARSET=utf8;' | mysql -p$mysqlpasswd $mail_db_name
 
 ### Table for aliases
+
+read -p "virtual_aliases" temp
 
 	echo 'CREATE TABLE `virtual_aliases` (
 	  `id` int(11) NOT NULL auto_increment,
@@ -93,6 +107,8 @@
 	mkdir /var/mail/vhosts/
 	chown -R vmail:vmail /var/mail/
 
+read -p "fuck construction" temp
+
 	i=1;
 	for domain in `ls domains`; do
 	        echo 'INSERT INTO `$mail_db_name`.`virtual_domains` (`id` ,`name`) VALUES ' \
@@ -109,6 +125,8 @@
 		        i=$(($i+1));
 	        done
 	done
+
+read -p "construction finished" temp
 
 ### Aliases
 
@@ -128,6 +146,9 @@
 ###### postfix stop
 
 ### Backup config
+
+read -p "postfix" temp
+
 	cp /etc/postfix/main.cf /etc/postfix/main.cf.orig
 
 	cat <<< "
@@ -245,6 +266,8 @@
 
 	service postfix restart
 
+read -p "finish postfix" temp
+
 ### Dovecot backup
 
 	cp /etc/dovecot/dovecot.conf /etc/dovecot/dovecot.conf.orig
@@ -355,6 +378,8 @@
 
 ### Gen ssl cer
 
+read -p "gen ssl" temp
+
 	openssl req -x509 -nodes -days 1 -newkey rsa:2048 -keyout /etc/ssl/private/dovecot.pem -out /etc/ssl/certs/dovecot.pem -subj "/C=RU/ST=test/L=test/O=test/CN=$main_domain" >> /root/log.txt 2>&1
 
 	cat <<< "
@@ -366,3 +391,6 @@
 ### Finish dovecot
 
 	service dovecot restart
+
+read -p "finished" temp
+
