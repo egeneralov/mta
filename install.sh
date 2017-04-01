@@ -42,8 +42,8 @@
 
 	echo -e "\e[31m Adding user for mail service\e[0m";
 	groupadd -g 5000 vmail;
-	useradd -g vmail -u 5000 vmail -d /var/mail;
-	mkdir /var/mail/vhosts/;
+	useradd -g vmail -u 5000 vmail -d /home/vmail;
+	mkdir -p /home/vmail/$domain/$user;
 	chown -R vmail:vmail /home/vmail/;
 
 # Create mysql user for mail
