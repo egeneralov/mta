@@ -2,13 +2,14 @@
 
 # Hello!
 
+	clear;
+
 	echo "Hello! I will setup MTA (posfix+dovecot) for you."
 	read -p "Enter your main domain:" domain
 	echo $domain > /etc/mailname
 	read -p "Enter your future mail user [@$domain]:" user
 	read -p "Enter your password for $user@$domain: " password
 	read -p "MySQL root password: " mysqlrootpasswd
-	read -p "Ready?" temp
 
 # MUST run on clean
 
@@ -43,7 +44,7 @@
 	groupadd -g 5000 vmail;
 	useradd -g vmail -u 5000 vmail -d /var/mail;
 	mkdir /var/mail/vhosts/;
-	chown -R vmail:vmail /var/mail/;
+	chown -R vmail:vmail /home/vmail/;
 
 # Create mysql user for mail
 
