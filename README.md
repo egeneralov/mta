@@ -111,7 +111,7 @@ read -p "fuck construction" temp
 
 	i=1;
 	for domain in `ls domains`; do
-	        echo "INSERT INTO \`$mail_db_name\`.\`virtual_domains\` (\`id\` ,\`name\`) VALUES " \
+	        echo "INSERT INTO \`"$mail_db_name"\`.\`virtual_domains\` (\`id\` ,\`name\`) VALUES " \
 	        "('1', '$domain');" | mysql -p$mysqlpasswd $mail_db_name
 		mkdir -p /var/mail/vhosts/$domain
 		chown -R vmail:vmail /var/mail/vhosts/$domain
