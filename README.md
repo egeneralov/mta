@@ -6,8 +6,8 @@ mysqlpasswd="killall33"
 mail_db_name="mail"
 mail_db_user="killall33"
 mail_db_passwd="killall33"
-main_domain="egeneralov.tk"
-read -p "Enter main domain (like [$main_domain]): "
+main_domain="egeneralov.ml"
+#read -p "Enter main domain (like [$main_domain]): "
 
 	### MUST run on clean
 
@@ -95,7 +95,7 @@ chown -R vmail:vmail /var/mail/
 
 i=1;
 for domain in `ls domains`; do
-        echo 'INSERT INTO `mailserver`.`virtual_domains` (`id` ,`name`) VALUES ' \
+        echo 'INSERT INTO `$mail_db_name`.`virtual_domains` (`id` ,`name`) VALUES ' \
         "('1', '$domain');" | mysql -p$mysqlpasswd $mail_db_name
 	mkdir -p /var/mail/vhosts/$domain
 	chown -R vmail:vmail /var/mail/vhosts/$domain
@@ -104,7 +104,7 @@ for domain in `ls domains`; do
 	        current=`echo $current | sed 's/:/      /g'`
 	        user=`echo $current | awk '{print $1}'`
 	        passwd=`echo $current | awk '{print $2}'`
-	        echo 'INSERT INTO `mailserver`.`virtual_users` (`id`, `domain_id`, `password` , `email`) VALUES ' \
+	        echo 'INSERT INTO `$mail_db_name`.`virtual_users` (`id`, `domain_id`, `password` , `email`) VALUES ' \
 	        "('$i', '1', ENCRYPT('$passwd', CONCAT('$6$', SUBSTRING(SHA(RAND()), -16))), '$user@$domain')'" | mysql -p$mysqlpasswd $mail_db_name
 	        i=$(($i+1));
         done
@@ -112,7 +112,7 @@ done
 
 	### Aliases
 
-###### INSERT INTO `mailserver`.`virtual_aliases`
+###### INSERT INTO `$mail_db_name`.`virtual_aliases`
 ###### (`id`, `domain_id`, `source`, `destination`)
 ###### VALUES
 ###### ('1', '1', 'alias@example.com', 'email1@example.com');
