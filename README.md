@@ -26,7 +26,7 @@
 #### Installing packages
 
 	echo -e "\e[31m + apt-get install mysql-server dovecot-core dovecot-imapd dovecot-mysql dovecot-pop3d dovecot-sieve postfix postfix-mysql\e[0m";
-	apt-get install -y dovecot-core dovecot-imapd dovecot-mysql dovecot-pop3d dovecot-sieve postfix postfix-mysql > /dev/null 2>&1;
+	apt-get install -y mysql-server dovecot-core dovecot-imapd dovecot-mysql dovecot-pop3d dovecot-sieve postfix postfix-mysql > /dev/null 2>&1;
 
 #### Stop services	
 
