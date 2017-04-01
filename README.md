@@ -8,10 +8,10 @@
 
 #### MUST run on clean
 
-	echo -e "\e[31m +apt-get clean\e[0m"; apt-get clean > /dev/null 2>&1;
-	echo -e "\e[31m +apt-get update\e[0m"; apt-get update > /dev/null 2>&1;
-	echo -e "\e[31m +apt-get upgrade\e[0m"; apt-get upgrade -y > /dev/null 2>&1;
-	echo -e "\e[31m +apt-get purge exim\e[0m"; apt-get remove --purge -y --force-yes exim4\* > /dev/null 2>&1;
+	echo -e "\e[31m + apt-get clean\e[0m"; apt-get clean > /dev/null 2>&1;
+	echo -e "\e[31m + apt-get update\e[0m"; apt-get update > /dev/null 2>&1;
+	echo -e "\e[31m + apt-get upgrade\e[0m"; apt-get upgrade -y > /dev/null 2>&1;
+	echo -e "\e[31m + apt-get purge exim\e[0m"; apt-get remove --purge -y --force-yes exim4\* > /dev/null 2>&1;
 
 #### Fuck off postfix installation
 
@@ -43,7 +43,8 @@
 
 #### Create mysql user for mail
 
-	echo "CREATE USER 'mail'@'localhost' IDENTIFIED BY 'YRC29rNa';"
+	echo "CREATE DATABASE mail;" | mysql -p$mysqlpasswd mail
+	echo "CREATE USER 'mail'@'localhost' IDENTIFIED BY 'YRC29rNa';" | mysql -p$mysqlpasswd mail
 	echo "GRANT ALL PRIVILEGES ON mail.* TO 'mail'@'localhost';" | mysql -p$mysqlpasswd mail
 	echo "FLUSH PRIVILEGES;" | mysql -p$mysqlpasswd mail
 
