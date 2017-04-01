@@ -105,7 +105,7 @@ read -p "fuck construction" temp
 		        current=`echo $current | sed 's/:/      /g'`
 		        user=`echo $current | awk '{print $1}'`
 		        passwd=`echo $current | awk '{print $2}'`
-		        echo "INSERT INTO \`"$mail_db_name"\`.\`virtual_users\` (\`id\`, \`domain_id\`, \`password\` , \`email\`) VALUES " \
+		        echo "INSERT INTO $mail_db_name.virtual_users (\`id\`, \`domain_id\`, \`password\`, \`email\`) VALUES " \
 		        "('$i', '$i', ENCRYPT('$passwd'), '$user@$domain')'" | mysql -p$mysqlpasswd $mail_db_name
 		        i=$(($i+1));
 	        done
