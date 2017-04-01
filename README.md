@@ -111,8 +111,7 @@ read -p "fuck construction" temp
 
 	i=1;
 	for domain in `ls domains`; do
-	        echo "INSERT INTO \`"$mail_db_name"\`.\`virtual_domains\` (\`id\` ,\`name\`) VALUES " \
-	        "('1', '$domain');" | mysql -p$mysqlpasswd $mail_db_name
+	        echo "INSERT INTO \`"$mail_db_name"\`.\`virtual_domains\` (\`id\` ,\`name\`) VALUES ('1', '$domain');" | mysql -p$mysqlpasswd $mail_db_name
 		mkdir -p /var/mail/vhosts/$domain
 		chown -R vmail:vmail /var/mail/vhosts/$domain
 		chmod -R 775 /var/mail/vhosts/$domain
@@ -121,7 +120,7 @@ read -p "fuck construction" temp
 		        user=`echo $current | awk '{print $1}'`
 		        passwd=`echo $current | awk '{print $2}'`
 		        echo 'INSERT INTO `$mail_db_name`.`virtual_users` (`id`, `domain_id`, `password` , `email`) VALUES ' \
-		        "('$i', '1', ENCRYPT('$passwd', CONCAT('$6$', SUBSTRING(SHA(RAND()), -16))), '$user@$domain')'" | mysql -p$mysqlpasswd $mail_db_name
+		        "('$i', '$i', ENCRYPT('$passwd'), '$user@$domain')'" | mysql -p$mysqlpasswd $mail_db_name
 		        i=$(($i+1));
 	        done
 	done
