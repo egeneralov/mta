@@ -43,7 +43,7 @@
 
 #### Create mysql user for mail
 
-	echo "CREATE DATABASE mail;" | mysql -p$mysqlpasswd mail
+	echo "CREATE DATABASE mail;" | mysql -p$mysqlpasswd mysql
 	echo "CREATE USER 'mail'@'localhost' IDENTIFIED BY 'YRC29rNa';" | mysql -p$mysqlpasswd mail
 	echo "GRANT ALL PRIVILEGES ON mail.* TO 'mail'@'localhost';" | mysql -p$mysqlpasswd mail
 	echo "FLUSH PRIVILEGES;" | mysql -p$mysqlpasswd mail
