@@ -12,8 +12,14 @@ This script will replace existing configuration. MTA exim will be deleted.
 
 Simple. First:
 
-	``` shell
 	git clone https://github.com/egeneralov/mta.git
 	cd mta
 	./install.sh
-	```
+
+If you need to add new domain:
+
+	./add-domain.sh
+
+If you need to add new user:
+
+	./add-user.sh
