@@ -30,16 +30,6 @@ CREATE TABLE `domains` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `domains`
---
-
-LOCK TABLES `domains` WRITE;
-/*!40000 ALTER TABLE `domains` DISABLE KEYS */;
-INSERT INTO `domains` VALUES ('takepage.ru');
-/*!40000 ALTER TABLE `domains` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `forwardings`
 --
 
