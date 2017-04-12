@@ -14,7 +14,7 @@
 	echo -e "\e[31m + apt-get upgrade\e[0m"; apt-get upgrade -y > /dev/null 2>&1;
 	echo -e "\e[31m + apt-get purge exim\e[0m"; apt-get remove --purge -y --force-yes exim4\* > /dev/null 2>&1;
 # Silient generate SSL cert
-	openssl req -nodes -newkey rsa:2048 -keyout postfix/server.key -out postfix/server.crt -subj "/C=RU/ST=Name Surname/L=Location/O=Company/OU=Department/CN=$domain"
+	openssl req -nodes -newkey rsa:2048 -keyout postfix/server.key -out postfix/server.crt -subj "/C=RU/ST=Name Surname/L=Location/O=Company/OU=Department/CN=$domain" > /dev/null 2>&1;
 # Auto postfix installation
 	debconf-set-selections <<< "postfix postfix/mailname string $domain";
 	debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'";
