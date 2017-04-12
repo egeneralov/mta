@@ -46,6 +46,8 @@
 	rm -rf /etc/postfix || echo -e "\e[31m >> remove /etc/postfix failed\e[0m";
 	cp -r postfix /etc/ || echo -e "\e[31m >> replace dovecot config failed\e[0m";
 	cp -r dovecot /etc/ || echo -e "\e[31m >> replace postfix config failed\e[0m";
+# Replace passwd to std
+	sed -i "s/mynewpassword/$mailpasswd/g" postfix/virtual_* dovecot/dovecot-sql.conf;
 # Start services
 	/etc/init.d/postfix start > /dev/null 2>&1 || echo -e "\e[31m >> postfix start failed \e[0m";
 	/etc/init.d/dovecot start > /dev/null 2>&1 || echo -e "\e[31m >> dovecot start failed \e[0m";
