@@ -23,8 +23,8 @@
 	echo -e "\e[31m + apt-get install mysql-server dovecot-core dovecot-imapd dovecot-mysql dovecot-pop3d dovecot-sieve postfix postfix-mysql\e[0m";
 	apt-get install -y mysql-server dovecot-core dovecot-imapd dovecot-mysql dovecot-pop3d dovecot-sieve postfix postfix-mysql > /dev/null 2>&1;
 # Stop services
-	echo -e "\e[31m service postfix stop\e[0m"; /etc/init.d/postfix stop > /dev/null 2>&1;
-	echo -e "\e[31m service dovecot stop\e[0m"; /etc/init.d/dovecot stop > /dev/null 2>&1;
+	/etc/init.d/postfix stop > /dev/null 2>&1;
+	/etc/init.d/dovecot stop > /dev/null 2>&1;
 # User and permissons
 	echo -e "\e[31m Adding user for mail service\e[0m";
 	groupadd -g 5000 vmail > /dev/null 2>&1;
