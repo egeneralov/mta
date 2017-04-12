@@ -1,5 +1,5 @@
 user = mail
-password = YRC29rNa
+password = mynewpassword
 hosts = localhost
 dbname = mail
 table = forwardings
