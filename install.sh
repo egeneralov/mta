@@ -34,8 +34,8 @@
 # Create mysql user for mail
 	echo -e "\e[31m -> configuring mysql\e[0m";
 	sed -i "s/mynewpassword/$mailpasswd/g" postfix/virtual_* dovecot/dovecot-sql.conf;
-	echo "CREATE DATABASE mail;" | mysql -p$mysqlrootpasswd mysql > /dev/null 2>&1 || echo -e "\e[31m >> creating database failed\e[0m";
-	echo "CREATE USER 'mail'@'localhost' IDENTIFIED BY '$mailpasswd';" | mysql -p$mysqlrootpasswd mail > /dev/null 2>&1 || echo -e "\e[31m >>create user failed\e[0m";
+	echo "CREATE DATABASE mail;" | mysql -p$mysqlrootpasswd mysql > /dev/null 2>&1 || echo -e "\e[31m\t>> creating database failed\e[0m";
+	echo "CREATE USER 'mail'@'localhost' IDENTIFIED BY '$mailpasswd';" | mysql -p$mysqlrootpasswd mail > /dev/null 2>&1 || echo -e "\e[31m\t>>create user failed\e[0m";
 	echo "GRANT ALL PRIVILEGES ON mail.* TO 'mail'@'localhost';" | mysql -p$mysqlrootpasswd mail > /dev/null 2>&1 || echo -e "\e[31m >> mysql set user permissions failed\e[0m";
 	echo "FLUSH PRIVILEGES;" | mysql -p$mysqlrootpasswd mail > /dev/null 2>&1 || echo -e "\e[31m >> flush privileges failed\e[0m";
 # Import mysql tables
