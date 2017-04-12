@@ -16,7 +16,7 @@ Simple. First:
 	cd mta
 	./install.sh
 
-If you need to add new domain support:
+#### If you need to add new domain support:
 
 	./add-domain.sh
 
@@ -24,7 +24,7 @@ If you need to add new domain support:
 - #:   Enter ROOT passwd.
 - Q: Domain: my-new-domain.ru
 
-If you need to add new user:
+#### If you need to add new user:
 
 	./add-user.sh
 
