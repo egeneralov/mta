@@ -26,7 +26,7 @@
 	/etc/init.d/postfix stop > /dev/null 2>&1;
 	/etc/init.d/dovecot stop > /dev/null 2>&1;
 # User and permissons
-	echo -e "\e[31m Adding user for mail service\e[0m";
+	echo -e "\e[31m -> Adding user for mail service\e[0m";
 	groupadd -g 5000 vmail > /dev/null 2>&1;
 	useradd -g vmail -u 5000 vmail -d /home/vmail > /dev/null 2>&1;
 	mkdir -p /home/vmail/$domain/$user;
@@ -55,7 +55,7 @@
 	echo "INSERT INTO \`domains\` (\`domain\`) VALUES ('$domain');" | mysql -p$mysqlrootpasswd mail
 # Adding user
 	echo "INSERT INTO \`users\` (\`email\`, \`password\`, \`quota\`, \`domain\`) VALUES ('$user@$domain', encrypt('$password'), '20971520', '$domain');" | mysql -p$mysqlrootpasswd mail > /dev/null 2>&1;
-	echo -e "\e[31m > Finished! \e[0m";
+	echo -e "\e[31m -> Finished! \e[0m";
 
 
 
