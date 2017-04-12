@@ -5,7 +5,7 @@
 	clear;
 
 	echo "Hello! I will setup MTA (posfix+dovecot) for you."
-	read -p "Enter your main domain:" domain
+	read -p "Enter your main domain: " domain
 	echo $domain > /etc/mailname
 	read -p "Enter passwd for mail user: " mailpasswd
 	read -p "Enter your future mail user [@$domain]:" user
@@ -81,7 +81,7 @@
 
 	echo "INSERT INTO \`users\` (\`email\`, \`password\`, \`quota\`, \`domain\`) VALUES ('$user@$domain', encrypt('$password'), '20971520', '$domain');" | mysql -p$mysqlrootpasswd mail
 
-
+	echo -e "\e[31m > Finished! \e[0m";
 
 
 
